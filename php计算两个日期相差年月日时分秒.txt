@@ -1,0 +1,37 @@
+/**
+ * function：计算两个日期相隔多少年，多少月，多少天
+ * param string $date1[格式如：2011-11-5]
+ * param string $date2[格式如：2012-12-01]
+ * return array array('年','月','日');
+ */
+function diffDate($date1,$date2)
+{
+    $datetime1 = new \DateTime($date1);
+    $datetime2 = new \DateTime($date2);
+    $interval = $datetime1->diff($datetime2);
+    $time['y']         = $interval->format('%Y');
+    $time['m']         = $interval->format('%m');
+    $time['d']         = $interval->format('%d');
+    $time['h']         = $interval->format('%H');
+    $time['i']         = $interval->format('%i');
+    $time['s']         = $interval->format('%s');
+    $time['a']         = $interval->format('%a');    // 两个时间相差总天数
+    return $time;
+}
+ 
+ 
+# 使用实例
+$sss = diffDate('2015-12-25 12:30:30', '2015-12-26 15:00:00');
+print_r($sss);
+ 
+# 输出
+Array
+(
+    [y] => 00
+    [m] => 0
+    [d] => 1
+    [h] => 02
+    [i] => 29
+    [s] => 30
+    [a] => 1
+)

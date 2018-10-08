@@ -1,0 +1,5 @@
+lay.each( $('.laydate'), function(){
+                        laydate.render({
+                            elem : this
+                        });
+                    });

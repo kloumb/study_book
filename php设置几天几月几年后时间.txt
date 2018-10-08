@@ -1,0 +1,58 @@
+php如何在原来的时间上加一天？一小时？
+
+<?php
+echo "今天:",date('Y-m-d H:i:s'),"<br>";
+echo "明天:",date('Y-m-d H:i:s',strtotime('+1 day'));
+?>
+上一行输出当前时间，下一行输出明天时间
+
+这里+1 day可以修改参数1为任何想需要的数  day也可以改成year（年），month（月），hour（小时）minute（分），second（秒）如：
+date('Y-m-d H:i:s',strtotime("+1 day +1 hour +1 minute");
+可以随便自由组合，以达到任意输出时间的目的
+注：该方法之针对1970年以后试用，也就是时间戳的适用范围。
+
+php 常用日期相函数[日期加减，两日期之差,日期转换时间截] 下面这些代码是一些常用的日期处理函数了，可以两个时间的日期加减，两日期之差,日期转换时间截等。 echo date('Y-m-d',strtotime('+1 d',strtotime('2009-07-08')));//日期天数相加函数 echo date
+
+php 常用日期相函数[日期加减，两日期之差,日期转换时间截]
+
+下面这些代码是一些常用的日期处理函数了，可以两个时间的日期加减，两日期之差,日期转换时间截等。
+
+echo date('Y-m-d',strtotime('+1 d',strtotime('2009-07-08')));//日期天数相加函数
+
+echo date("Y-m-d",'1246982400');
+echo '<br>';
+echo date("Y-m-d",'1279123200');
+die();
+
+$d   =   "2009-07-08 10:19:00";
+echo   date("Y-m-d",strtotime("$d   +1   day"));   //日期天数相加函数
+
+function dateToTime($d)//把日期转换成时间堆截
+{
+$year=((int)substr("$d",0,4));//取得年份
+
+$month=((int)substr("$d",5,2));//取得月份
+
+$day=((int)substr("$d",8,2));//取得几号
+
+return mktime(0,0,0,$month,$day,$year);
+}
+
+
+
+$Date_1="2009-07-08";
+
+echo $Date_1+1;
+
+$Date_2="2009-06-08";
+$Date_List_a1=explode("-",$Date_1);
+
+$Date_List_a2=explode("-",$Date_2);
+
+$d1=mktime(0,0,0,$Date_List_a1[1],$Date_List_a1[2],$Date_List_a1[0]);
+
+$d2=mktime(0,0,0,$Date_List_a2[1],$Date_List_a2[2],$Date_List_a2[0]);
+
+$Days=round(($d1-$d2)/3600/24);
+
+echo "两日期之前相差有$Days 天";

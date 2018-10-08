@@ -1,0 +1,44 @@
+// 默认加一天
+    function addDate(date, days) {
+        if (days == undefined || days == '') {
+            days = 1;
+        }
+        var date = new Date(date);
+        date.setDate(date.getDate() + days );
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
+        return date.getFullYear() + '-' + getFormatDate(month) + '-' + getFormatDate(day);
+    }
+
+    function getFormatDate(arg) {
+        if (arg == undefined || arg == '') {
+            return '';
+        }
+        var re = arg + '';
+        if (re.length < 2) {
+            re = '0' + re;
+        }
+        return re;
+    }
+
+
+
+// 获取当前时间，与上面无关系
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    // var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+    //         + " " + date.getHours() + seperator2 + date.getMinutes()
+    //         + seperator2 + date.getSeconds();
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate;
+    return currentdate;
+}

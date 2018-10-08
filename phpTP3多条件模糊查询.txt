@@ -1,0 +1,12 @@
+// 获取设计师（适用于不同字段的多个条件（模糊条件））
+            $where = [];
+            $where['_logic'] = 'or';
+            $where['position'] = array('like', '%'.C('position_name')['CHUANG_ZUO_ZU_ZHANG'].'%');
+            $where['department_position'] = array('like', '%'.C('position_name')['CHUANG_ZUO_CHENG_YUAN'].'%');
+            $map = [];
+            $map['_complex'] = $where;
+            $members = M('member')->where($map)->getField('uid, realname');
+
+
+$map = 'department_position like "%'.C('position_name')['CHUANG_ZUO_ZU_ZHANG'].'%" or department_position like "%'.C('position_name')['CHUANG_ZUO_CHENG_YUAN'].'%"';
+            $members = M('member')->where($map)->getField('uid, realname');

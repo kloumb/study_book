@@ -1,0 +1,5 @@
+if (typeof(reValue) == "undefined") { 
+   alert("undefined"); 
+}
+
+typeof 返回的是字符串，有六种可能："number"、"string"、"boolean"、"object"、"function"、"undefined"

@@ -1,0 +1,27 @@
+// 比较日期大小
+    function dateCompare(dateString, compareDateString){
+        var dateTime = dateParse(dateString).getTime();
+        var compareDateTime = dateParse(compareDateString).getTime();
+        if(compareDateTime > dateTime){
+            return 1;  //后面的日期大，返回1
+        }else if(compareDateTime == dateTime){
+            return 0;  //相等返回0
+        }else{
+            return -1;  //前面的日期小，返回-1
+        }
+    };
+
+    function dateParse(dateString){
+        var SEPARATOR_BAR = "-";
+        var SEPARATOR_SLASH = "/";
+        var SEPARATOR_DOT = ".";
+        var dateArray;
+        if(dateString.indexOf(SEPARATOR_BAR) > -1){
+            dateArray = dateString.split(SEPARATOR_BAR);
+        }else if(dateString.indexOf(SEPARATOR_SLASH) > -1){
+            dateArray = dateString.split(SEPARATOR_SLASH);
+        }else{
+            dateArray = dateString.split(SEPARATOR_DOT);
+        }
+        return new Date(dateArray[0], dateArray[1]-1, dateArray[2]);
+    };

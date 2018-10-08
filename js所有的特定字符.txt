@@ -1,0 +1,15 @@
+//去左空格;
+function ltrim(s){
+    return s.replace(/(^\s*)/g, "");
+}
+//去右空格;
+function rtrim(s){
+    return s.replace(/(\s*$)/g, "");
+}
+//去左右空格;
+function trim(s){
+    return s.replace(/(^\s*)|(\s*$)/g, "");
+}
+
+// 正则表达式，去除所有的"号
+var ga_adver = ( e.ga_adver_time ).replace(/"/g,'');
