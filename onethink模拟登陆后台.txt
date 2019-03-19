@@ -1,0 +1,5 @@
+// Ä£ÄâµÇÂ½PCºóÌ¨
+$User = new UserApi;
+$uid = $User->login('admin', 'admin');
+$Member = D('Member');
+$Member->login($uid);

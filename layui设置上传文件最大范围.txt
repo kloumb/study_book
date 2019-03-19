@@ -1,0 +1,35 @@
+//创建一个上传组件
+            var upload_layer;
+            upload.render({
+                elem: '.upload'
+                ,url: "{:U('upload')}"
+                ,accept: 'file' //普通文件
+                ,exts: 'png|jpg|bmp|gif|jpeg' //只允许上传压缩文件
+                ,data: {
+                }
+                ,before: function(obj){ //obj参数包含的信息，跟 choose回调完全一致，可参见上文。
+                    upload_layer = layer.msg('上传中,请稍候...', {
+                        icon: 16
+                        ,time: 0
+                        ,shade: 0.01
+                    });
+                }
+                ,done: function(res, index, upload){ //上传后的回调
+                    console.log(res);
+                    $('.images_html').find('.image').attr('src',res.path);
+                    $('.images_html').find('.images_input').attr('value',res.path);
+                    $('.images').append($('.images_html').html());
+                    layer.close(upload_layer);
+                    //location.reload();
+                }
+                ,error: function(index, upload){
+                    layer.closeAll();
+                    layer.alert('上传的文件可能包含非图像文件,请检查.',{icon: 7}, function(index){
+                        location.reload();
+                    });
+                    return false;
+                }
+                //,accept: 'file' //允许上传的文件类型
+                //,size: 50 //最大允许上传的文件大小
+                //,……
+            });

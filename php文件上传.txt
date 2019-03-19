@@ -1,0 +1,46 @@
+public function upload(){
+        $upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   = 0 ;// 设置附件上传大小
+        $upload->exts      = array('jpg', 'gif', 'png', 'jpeg', 'mp4');// 设置附件上传类型
+        $upload->rootPath  = './Uploads/'; // 设置附件上传根目录
+        $upload->savePath  = ''; // 设置附件上传（子）目录
+        // 上传文件
+        $info = $upload->upload();
+        logg( $info );
+        if(!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        }else{// 上传成功
+            $this->success('上传成功！');
+        }
+    }
+
+
+// 返回路径
+$upload = new \Think\Upload();// 实例化上传类
+        $upload->maxSize   = 3145728 ;// 设置附件上传大小
+        $upload->exts      = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+        $upload->rootPath  = './Uploads/'; // 设置附件上传根目录
+        $upload->savePath  = ''; // 设置附件上传（子）目录
+        // 上传文件
+        $info = $upload->upload();
+        logg( $info );
+        if(!$info) {// 上传错误提示错误信息
+            $this->error($upload->getError());
+        }else{// 上传成功
+            $this->success( $upload->rootPath.$info['file']['savepath'].$info['file']['savename'] );
+        }
+
+
+$info的内容如下：
+'file' => 
+  array (
+    'name' => '返乡青年陈金龙创办星火创业公社，发展电商推介当地特产，带领老百姓走上致富之路。如今一大批这样的有志青年正返乡创业，努力拼搏再创辉煌。.mp4',
+    'type' => 'video/mp4',
+    'size' => 137225400,
+    'key' => 'file',
+    'ext' => 'mp4',
+    'md5' => '9d5d5d4f8abce8406044c0d2ecff8c0f',
+    'sha1' => '78b54324c5c28762e7f0586f9ad1c2366ccbe656',
+    'savename' => '5c176861d27e5.mp4',
+    'savepath' => '2018-12-17/',
+  ),

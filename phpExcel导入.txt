@@ -1,0 +1,32 @@
+/**
+ * 导入文件
+ * 甘海彬 <598736868@qq.com>
+ * 2018-12-03
+ */
+function excelToArray( $filename = '' ){
+    //加载excel文件
+    vendor("phpexcel.PHPExcel");
+    $reader = \PHPExcel_IOFactory::createReader('Excel5'); // 读取 excel 文档
+    $objPHPExcelReader = $reader->load($filename);         // 文档名称
+
+    $sheet = $objPHPExcelReader->getSheet(0); 		   // 读取第一个工作表(编号从 0 开始)
+    $highestRow = $sheet->getHighestRow(); 		   // 取得总行数
+    $highestColumn = $sheet->getHighestColumn(); 	   // 取得总列数
+
+    // 一次读取一列
+    $arr = array('A','B','C','D','E','F','G','H','I','J','K','L','M', 'N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+    $res_arr = array();
+    for ($row = 2; $row <= $highestRow; $row++) {
+        $row_arr = array();
+        for ($column = 0; $arr[$column] != $highestColumn; $column++) {
+            $val = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+            if( is_object( $val ) ){
+                $row_arr[] = $val->__toString();
+            }else{
+                $row_arr[] = $val;
+            }
+        }
+        $res_arr[] = $row_arr;
+    }
+    return $res_arr;
+}

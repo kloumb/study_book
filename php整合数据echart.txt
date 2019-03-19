@@ -1,0 +1,16 @@
+后台返回数据：$arr【不用转json】
+$arr = [];
+$arr['value'] = $result['select'][$subject['id']][$option['id']];
+$arr['name']  = $option['content'];
+$result['data'][$subject['id']][] = $arr;
+
+前台接收数据【不用转json】
+series : [
+	{
+		name:'票数',
+		type:'pie',
+        	radius : '55%',
+	        center: ['50%', '60%'],
+        	data: data.data[e]
+	}
+]

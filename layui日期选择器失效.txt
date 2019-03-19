@@ -3,3 +3,11 @@ lay.each( $('.laydate'), function(){
                             elem : this
                         });
                     });
+
+
+lay('.date-time').each(function(){
+                laydate.render({
+                    elem: this
+                    ,trigger: 'click'
+                });
+            });

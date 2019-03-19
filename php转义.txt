@@ -1,0 +1,18 @@
+$a = '<strong>123</strong>';     //假设这是html代码
+$b =  htmlspecialchars($a);          //将< >这些符号转为&lt;等等
+echo htmlspecialchars_decode($b);     //这个是htmlspecialchars函数的反函数
+// echo html_entity_decode($a);        //这个也是htmlspecialchars的反函数
+
+ 
+
+//两个反函数之间的区别自行搜索吧
+//应该是转义的范围不一样吧
+
+ 
+1、
+htmlspecialchars
+htmlspecialchars_decode
+ 
+2、
+htmlentities
+html_entity_decode

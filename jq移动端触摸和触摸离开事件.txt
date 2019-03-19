@@ -1,0 +1,7 @@
+$('body').on('touchstart','.app_info',function(){
+	$(this).css('background','#fdfdfd');
+});
+
+$('body').on('touchmove','.app_info',function(){
+	$(this).css('background','#FFF');
+});

@@ -1,0 +1,9 @@
+// 支持苹果/安卓/PC
+$('body').on('click', '.item', function(){
+
+});
+
+// 支持安卓/PC，不支持苹果 
+$('div').delegate('button', 'click', function(){
+
+});

@@ -1,0 +1,15 @@
+账号：kloumbtest1@163.com
+密码：
+
+
+'AppID'  => 'wxfe2efff58af1b553'
+'Secret' => '78e4b1cf381cc72e0b54d47948efcdb7'
+
+
+服务器配置：
+
+服务器地址(URL)：http://test.hivetech.cn/haibin/weixin.php
+Token：ganhaibinweixin
+
+
+消息加解密密钥(EncodingAESKey)：15qtMoJGuTYoYg4z2j0y2q6i86PI40Gjj8iLwhmD7pn

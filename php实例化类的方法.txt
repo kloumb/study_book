@@ -1,0 +1,14 @@
+           // 实例化控制器A方法
+ 9         $test=A("Manager");
+10         echo $test->test1();
+11 
+12         echo "<br/>";
+13 
+14         //也可以去跨模块调用
+15         $test_m=A("Home/Goods");
+16         echo $test_m->test();
+17 
+18         echo "<br/>";
+19         //R方法可以取执行对应模块下面的
+20         R("Home/Goods/test");
+21         // $this->display();

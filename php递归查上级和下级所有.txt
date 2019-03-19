@@ -1,0 +1,48 @@
+/**
+ * 递归查出上级所有单位
+ * @author 甘海彬
+ * 2018-1-3
+ */
+function get_up_units($unit_id, &$return_ids)
+{
+    if ( !empty($unit_id) ) {
+        $map = array();
+        $map['id']     = $unit_id;
+        $map['status'] = 1;
+        $pid = M('dangjian_unit')->where($map)->getField('pid');
+        if( $pid ){
+            array_push($return_ids, $pid);
+            get_up_units($pid, $return_ids);
+        }
+    }
+}
+$result_units = [UNID];
+get_up_units(UNID, $result_units);
+
+
+/**
+ * 递归查出下级所有单位【根据权限返回unid_ids，默认返回管辖范围的所有unid】
+ * @author 甘海彬
+ * 2018-9-28
+ */
+function get_units($unit_id, &$return_ids)
+{
+    if ( !empty($unit_id) ) {
+        $map = array();
+        $map['pid']    = $unit_id;
+        $map['status'] = 1;
+        $ids = M('dangjian_unit')->where($map)->getField('id', true);
+        if( $ids ){
+            foreach ($ids AS $id) {
+                if (empty($id)) {
+                    return;
+                } else {
+                    array_push($return_ids, $id);
+                    get_units($id, $return_ids);
+                }
+            }
+        }
+    }
+}
+$units = [UNID];
+get_units(UNID, $units);

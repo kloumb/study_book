@@ -1,0 +1,3 @@
+var body = layer.getChildFrame('body', index);
+var data  = [];
+var forms = $(body).find("form[name='activity_form']").serializeArray();

@@ -1,0 +1,5 @@
+1、选择第一个p元素
+p:nth-child(1)
+
+2、选择指定元素内的第一个.item
+.block_top .item:nth-child(1)

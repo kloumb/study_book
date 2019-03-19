@@ -1,0 +1,8 @@
+1、不包含刷新当前页面时间，可以通过后台处理【读取今日是否已访问，一天的访问算一次访问】、或者每次刷新都算重新进入页面也可以；
+var second = 0;
+    window.setInterval(function () {
+        second ++;
+    }, 1000);
+    window.onbeforeunload = function() {
+        
+    };

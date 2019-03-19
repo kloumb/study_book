@@ -1,0 +1,78 @@
+此方法可以用在layui中switch控件，checkbox和randio方法
+$(':checkbox[name="is_enable"]').prop('checked', true);
+$(':checkbox[name="is_repeat"]').prop('checked', true);
+
+
+
+$("#chx1").find("input:checkbox:checked").val();
+$("#chx1").find("input:[type='checkbox']:checked").val();
+
+$("#chx1").find("input[type='checkbox']:checked").val();
+$("#chx1").find("input:[name='ck']:checked").val();
+
+$("#chx1").find("input[name='ck']:checked").val();
+
+2、获取多个checkbox选项
+$("#chk1").find('input:checkbox').each(function()?{
+	if($(this).prop('checked')?== true)?{
+
+		console.log($(this).val()); //打印当前选中的复选框的值
+
+	}
+
+});
+
+
+function getCheckBoxVal(){
+	var chk_value =[];
+	$("#chk1").find('input[name="test"]:checked').each(function(){
+		chk_value.push($(this).val());
+	});
+	alert(chk_value.length==0??'你还没有选择任何内容！':chk_value);
+}
+
+
+3、设置其中一个
+$("#chk1").find('input:checkbox:first').prop("checked",true);
+//或者
+$("#chk1").find('input:checkbox').eq(0).prop("checked",true);
+
+4、设置最后一个checkbox被选中
+$("#chk1").find('input:checkbox:last').prop("checked",true);
+
+5、根据索引值设置任意一个checkbox为选中值
+$("#chk1").find('input:checkbox').eq(索引值).prop('checked',?true);??//索引值=0,1,2....?
+//或者
+$("#chk1").find('input:checkbox').slice(1,2).prop('checked',?true); //同时选中第0个和第1个checkbox
+//从索引0开始（包含），到索引2（不包含）的checkbox
+
+6、根据value值设置checkbox为选中值
+$("#chk1").find("input:checkbox[value='1']").prop('checked',true);
+$("#chk1").find("input[type='checkbox'][value='1']").prop('checked',true);
+
+7、删除checkbox：①删除value=1的checkbox ②删除第几个checkbox
+$("#chk1").find("input:checkbox[value='1']").remove(); //将匹配元素从DOM中删除，将标签从页面上删除了
+
+$("#chk1").find("input:checkbox").eq(index).remove();?//索引值 index=0,1,2....
+//如删除第3个checkbox:
+$("#chk1").find("input:checkbox").eq(2).remove();
+
+8、全部选中或全部取消选中
+$("#chk1").find('input:checkbox').each(function()?{
+????
+	$(this).prop('checked',?true);
+
+});
+
+
+
+$("#chk1").find('input:checkbox').each(function?()?{
+????
+	$(this).prop('checked',false);
+
+});
+
+
+9、选中所有奇数项或偶数项
+$("#chk1").find("input[type='checkbox']:even").prop("checked",true);?//选中所有偶数?
+$("#chk1").find("input[type='checkbox']:odd").prop("checked",true);?//选中所有奇数?

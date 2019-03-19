@@ -1,0 +1,9 @@
+下面的例子返回带有类名 "intro" 的所有 <p> 元素：（带）
+$(document).ready(function(){
+  $("p").filter(".intro");
+});
+
+下面的例子返回不带有类名 "intro" 的所有 <p> 元素：（不带）
+$(document).ready(function(){
+  $("p").not(".intro");
+});

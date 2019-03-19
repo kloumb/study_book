@@ -1,0 +1,57 @@
+$datas   = M('member')->where($map)->select();
+$xlsName = '最新会议事项' . date('Y-m-d');
+                $xlsCell = ['序号','会议主题','会议内容','会议类型','会议时间','会议地点','发布人','会议状态'];
+                $fields = ['id', 'title', 'content_html', 'type_name', 'time', 'room_name', 'publisher', 'meeting_info'];
+$this->exportExcel($xlsName, $xlsCell, $datas, $fields);
+
+public function exportExcel($expTitle,$expCellName,$expTableData,$expField){
+        $fileName = iconv('utf-8', 'gb2312', $expTitle);//文件名称
+        $cellNum  = count($expCellName);
+        $dataNum  = count($expTableData);
+        vendor("phpexcel.PHPExcel");
+
+        $objPHPExcel = new \PHPExcel();
+        $activeSheet = $objPHPExcel->getActiveSheet(0);
+        $cellName = array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','AA','AB','AC','AD','AE','AF','AG','AH','AI','AJ','AK','AL','AM','AN','AO','AP','AQ','AR','AS','AT','AU','AV','AW','AX','AY','AZ','BA','BB','BC','BD');
+
+        //设置行高
+        $activeSheet->getRowDimension('1')->setRowHeight(31.5);
+        $activeSheet->getRowDimension('2')->setRowHeight(31.5);
+
+        //水平垂直居中
+        $activeSheet->getStyle('A1')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
+
+        //表格标题
+        $activeSheet->mergeCells('A1:'.$cellName[$cellNum-1].'1');//合并单元格
+        $activeSheet->getStyle('A1')->getFont()->setSize(24);     //改字体大小
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', $expTitle);
+
+        for($i=0;$i<$cellNum;$i++){
+            //表头字段
+            $objPHPExcel->setActiveSheetIndex(0)->setCellValue($cellName[$i].'2', $expCellName[$i]);
+            //表头宽度
+            $activeSheet->getColumnDimension($cellName[$i])->setWidth(20);
+            //表头内容水平居中
+            $activeSheet->getStyle($cellName[$i].'2')->getAlignment()->setHorizontal(\PHPExcel_Style_Alignment::HORIZONTAL_CENTER)->setVertical(\PHPExcel_Style_Alignment::VERTICAL_CENTER);
+            //表头背景颜色
+            $activeSheet->getStyle($cellName[$i].'2')->getFill()->setFillType(\PHPExcel_Style_Fill::FILL_SOLID)->getStartColor()->setRGB('595959');
+            //表头字体颜色
+            $activeSheet->getStyle($cellName[$i].'2')->getFont()->getColor()->setARGB(\PHPExcel_Style_Color::COLOR_WHITE);
+        }
+        for($i=0;$i<$dataNum;$i++){
+            foreach($expField as $key => $val){
+                if($expField[$key] == 'id'){
+                    //logg($expField);
+                    $activeSheet->setCellValue($cellName[$key] . ($i+3), ' '.($i+1));
+                }else{
+                    $activeSheet->setCellValue($cellName[$key] . ($i+3), ' '.$expTableData[$i][$val]);
+                }
+            }
+        }
+        header('pragma:public');
+        header('Content-type:application/vnd.ms-excel;charset=utf-8;name="'.$fileName.'.xls"');
+        header("Content-Disposition:attachment;filename=$fileName.xls");//attachment新窗口打印inline本窗口打印
+        $objWriter = \PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+        $objWriter->save('php://output');
+        exit;
+    }

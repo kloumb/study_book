@@ -1,0 +1,2 @@
+1、获取相对路径
+ 'http://'.$_SERVER['SERVER_NAME'].__ROOT__.'/'.MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME.'/id/'.$id.'/i/'.UNID.'.html';

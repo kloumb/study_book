@@ -1,0 +1,13 @@
+$filename = $_GET['filename'];
+
+header('content-disposition:attachment;filename='.$filename);
+
+header('content-length:'.filesize($filename));
+
+reader($filename);
+
+或者
+<a href="" download="www.test.cn/1.rar"></a>
+
+或者
+curl下载

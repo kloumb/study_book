@@ -1,0 +1,17 @@
+1、可前端组装为二维数组
+			for( var i = 0, len = max.length; i < len; i++ ){
+                            conditions[i] = [];
+                            conditions[i]['min'] = min[i];
+                            conditions[i]['max'] = max[i];
+                            conditions[i]['intergal_score'] = intergal_score[i];
+                        }
+
+
+2、数组转json传值后台
+// 整合条件
+                        for( var i = 0, len = max.length; i < len; i++ ){
+                            conditions[i] = {};
+                            conditions[i]['min'] = min[i];
+                            conditions[i]['max'] = max[i];
+                            conditions[i]['intergal_score'] = intergal_score[i];
+                        }

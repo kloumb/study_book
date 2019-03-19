@@ -1,0 +1,11 @@
+div{ 
+
+	/*实现了宽度为父容器宽度减去固定的300像素*/ 
+	
+width:-webkit-calc(100% - 300px); 
+	
+width:-moz-calc(100% - 300px); 
+	
+width:calc(100% - 300px); 
+
+}

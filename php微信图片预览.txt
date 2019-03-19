@@ -1,0 +1,72 @@
+$user = app('JSSDK');
+        $signature = $user->getSignature();
+        $map = array();
+        $map['id'] = UNID;
+        $signature['appid'] = M('dangjian_unit') ->where($map) ->getField('corpid');
+
+$this->assign('signature',    $signature);
+
+
+前台
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+wx.config({
+            beta: true,// 必须这么写，否则wx.invoke调用形式的jsapi会有问题
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "{$signature.appid}", // 必填，企业微信的corpID
+            timestamp: "{$signature.timestamp}", // 必填，生成签名的时间戳
+            nonceStr: "{$signature.noncestr}", // 必填，生成签名的随机串
+            signature: "{$signature.signature}",// 必填，签名
+            jsApiList: ['chooseImage', 'previewImage', 'uploadImage', 'downloadImage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        $('img').click(function() {
+            var thisimg = $(this).attr('src');
+            var imglist = $('img');
+            var srcs = Array();
+            for (var i =0; i <imglist.length; i++) {
+                srcs.push( imglist.eq(i).attr('src') );
+            }
+
+            wx.ready(function(){
+                wx.previewImage({
+                    current: thisimg, // 当前显示图片的http链接
+                    urls: srcs // 需要预览的图片http链接列表
+                });
+            });
+        });
+
+
+
+
+图片压缩无损保真【通过ajax获取新生成的压缩图片路径，在success后添加进来】
+
+<img src="http://127.0.0.1/first/Public/image/bg3.jpg" class="img">
+
+$('.img').on('click', function(){
+           var url = $(this).attr('src');
+           $.ajax({
+                type : 'post',
+                url  : "{:U('imgpress')}",
+                data : {
+                  url : url
+                },
+                success : function( data ){
+                    console.log(data);
+                    $('.img').after('<img src="'+ data +'">');
+                }
+           });
+        });
+
+
+
+
+public function imgpress(){
+        if( IS_POST ){
+            $post = I('post.');
+            $source  = $post['url'];
+            $dst_img = 'bg100.jpg'; //压缩后图片的名称
+            $percent = 0.5;  #原图压缩，不缩放，但体积大大降低
+            (new Imgcompress($source, $percent))->compressImg($dst_img);
+            $this->ajaxReturn( $dst_img );
+        }
+    }
