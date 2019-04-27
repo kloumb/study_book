@@ -1,0 +1,96 @@
+wxml
+
+<view class="content">
+  <view class="today">
+    <view class="info">
+      <view class="temp">{{temp}}</view>
+      <view class="lowhigh">{{low}}/{{high}}</view>
+      <view class="type">{{type}}</view>
+      <view class="city">{{city}}</view>
+      <view class="weather">{{weather}}</view>
+      <view wx:if="{{count<3}}">hello world</view>
+      <view wx:elif="{{count>3 || count<=10}}">hello world</view>
+    </view>
+  </view>
+</view>
+
+
+
+js
+//index.js
+//获取应用实例
+const app = getApp()
+
+Page({
+  data : {
+    temp: '4',
+    low: '-1C',
+    high:'10C',
+    type:'晴',
+    city:'北京',
+    week:'星期二',
+    weather:'无持续风行 微风级',
+    count:10
+  }
+})
+
+
+简单两步，实现动态数据绑定；
+
+这里我是通过 微信小程序wx.request实现ajax请求服务器数据的，一个程序里面最多能有五个这样的请求。下面是index.js的代码
+var app = getApp()
+Page({
+   data: {
+   motto: 'Hello World',
+   userInfo: {},
+   Industry:{}
+ },
+ onLoad: function (res) {
+   var that = this
+   //调用应用实例的方法获取全局数据
+   app.getUserInfo(function(userInfo){
+    //更新数据
+     that.setData({
+        userInfo:userInfo
+     })
+   })
+   wx.request({
+      url: 'http://xx.xxxxx.com/xxx.php',//上线的话必须是https，没有appId的本地请求貌似不受影响
+      data: {},
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function(res){
+         console.log(res.data.result)
+         that.setData({
+             Industry:res.data.result
+         })
+      },
+      fail: function() {
+        // fail
+      },
+      complete: function() {
+        // complete
+      }
+   })
+  }
+})
+
+
+展示页面就简单了，变量{{array}} 微信模版遍历数据使用 wx:for 。index.wxml代码如下：
+<!--index.wxml-->
+<view class="container">
+?<view bindtap="bindViewTap" class="userinfo">
+??<image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+??<text class="userinfo-nickname">{{userInfo.nickName}}</text>
+?</view>
+</view>
+<view wx:for="{{Industry}}" wx:ket="{{index}}">
+??{{index}}：{{item.name}}
+</view>
+
+
+
+日志
+1、和飞信接口研究
+2、井岸镇、移动党建，文章录入
+3、下午和晓丹去香洲区政府，协助演示大数据党建；
