@@ -1,0 +1,43 @@
+1、数据绑定
+（1）公共数据定义，新建一个js公共模板；pages/data/data.js
+var initData = [
+  {
+    "newid":0,
+    "title":"海彬",
+    "content":"这是一条广告",
+    "create_time":"2019-04-10"
+  }
+]
+
+module.exports = {
+  initData:initData
+}
+
+
+（2）在pages/test/index.js中使用js公共模板
+var newData = require("../data/data.js");
+Page({
+  /**
+   * 页面的初始数据
+   */
+  data: {
+    newData : []
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    console.log(newData.initData);
+    this.setData({
+      newData: newData.initData
+    });
+  }
+})
+
+（3）在wxml中使用
+<view class="container">
+  <text>{{newData[0].title}}</text>
+  <text>{{newData[0].content}}</text>
+  <text>{{newData[0].create_time}}</text>
+</view>
